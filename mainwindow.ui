@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Tab">
      <attribute name="title">
@@ -57,7 +57,7 @@ QGroupBox::title  {
 }</string>
       </property>
       <property name="title">
-       <string>logement</string>
+       <string>Logement</string>
       </property>
       <widget class="QLabel" name="label">
        <property name="geometry">
@@ -294,7 +294,7 @@ QGroupBox::title  {
 }</string>
       </property>
       <property name="title">
-       <string>Gestion des finances</string>
+       <string>Logement</string>
       </property>
       <widget class="QLabel" name="label_5">
        <property name="geometry">
@@ -531,7 +531,7 @@ QGroupBox::title  {
 }</string>
       </property>
       <property name="title">
-       <string>Gestion des finances</string>
+       <string>Logement</string>
       </property>
       <widget class="QLabel" name="label_9">
        <property name="geometry">

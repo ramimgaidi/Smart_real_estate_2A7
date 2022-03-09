@@ -12,6 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    void afficherBD();
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

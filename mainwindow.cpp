@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    int ref_log=ui->lineEdit->text().toInt();
+        int ref_log=ui->lineEdit->text().toInt();
         QString type_log=ui->comboBox_2->currentText();
         QString adresse_log=ui->lineEdit_3->text();
         int surface_log=ui->lineEdit_16->text().toInt();
@@ -87,4 +87,10 @@ void MainWindow::on_pushButton_3_clicked()
     else
         msgbox.setText("Echec de suppression");
     msgbox.exec();
+}
+void MainWindow::afficherBD()
+{
+Logement afe;
+ui->tableView->setModel(afe.afficher());
+
 }
