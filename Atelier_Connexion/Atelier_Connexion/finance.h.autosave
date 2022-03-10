@@ -1,0 +1,31 @@
+#ifndef Logement_H
+#define Logement_H
+#include <QDate>
+#include <QString>
+#include <QSqlQueryModel>
+class Logement
+{
+public:
+    Logement();
+    Logement(int,QString,int,QDate);
+    int getid_Logement();
+    int getrevenance();
+    QString gettype_trans();
+    QDate getdatee();
+
+    void setid_Logement(int);
+    void setrevenance(int);
+    void settype_trans(QString);
+    void setdatee(QDate);
+    bool ajouter();
+    QSqlQueryModel* afficher();
+    bool supprimer(int);
+    bool modifier (int);
+private:
+    int id_Logement,revenance;
+    QString type_trans;
+    QDate datee;
+};
+
+
+#endif // Logement_H
