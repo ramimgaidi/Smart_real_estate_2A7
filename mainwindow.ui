@@ -23,8 +23,50 @@
       <height>421</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid #C2C7CB;
+    
+	background-color: rgb(255, 255, 255);
+}
+
+QTabWidget::tab-bar {
+    left: 5px; /* move to the right by 5px */
+    
+	color: rgb(0, 0, 127);
+    }
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar not QTabWidget */
+QTabBar::tab {
+ 
+	background-color: rgb(23, 54, 93);
+    
+	color: rgb(255, 255, 255);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+	
+   
+}
+
+QTabBar::tab:selected {
+    border-color: #9B9B9B;
+    border-bottom-color: #C2C7CB; /* same as pane color */
+}
+
+QTabBar::tab:!selected {
+    margin-top: 2px; /* make non-selected tabs look smaller */
+}</string>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Tab">
      <attribute name="title">
@@ -34,7 +76,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>30</y>
         <width>701</width>
         <height>321</height>
        </rect>
@@ -46,6 +88,7 @@
     margin-top: 27px;
     font-size: 14px;
     border-radius: 15px;
+	background-color: rgb(255, 255, 255);
 }
 
 QGroupBox::title  {
@@ -54,6 +97,41 @@ QGroupBox::title  {
     padding: 5px 8000px 5px 8000px;
     background-color: #FF17365D;
     color: rgb(255, 255, 255);
+}
+QLabel {
+	font: 11pt &quot;Adobe Gothic Std B&quot;;
+}
+QLabel{
+	color: rgb(23, 54, 93);
+}
+QLineEdit
+{
+ 
+    background-color: white;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+    font: bold 14px;
+    min-width: 10 em;
+    padding: 6px;
+
+ }
+QComboBox
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    selection-background-color: #111;
+    selection-color: yellow;
+    color: white;
+    
+	background-color: rgb(100, 175, 194);
+    border-style: solid;
+    border: 2px solid ;
+    
+	border-color: rgb(192, 192, 192);
+    border-radius: 5;
+    padding: 1px 0px 1px 20px;
 }</string>
       </property>
       <property name="title">
@@ -64,8 +142,8 @@ QGroupBox::title  {
         <rect>
          <x>140</x>
          <y>60</y>
-         <width>113</width>
-         <height>20</height>
+         <width>161</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -74,8 +152,8 @@ QGroupBox::title  {
         <rect>
          <x>140</x>
          <y>140</y>
-         <width>113</width>
-         <height>20</height>
+         <width>161</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -130,8 +208,8 @@ QPushButton:pressed {
         <rect>
          <x>140</x>
          <y>100</y>
-         <width>113</width>
-         <height>20</height>
+         <width>161</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -140,8 +218,8 @@ QPushButton:pressed {
         <rect>
          <x>140</x>
          <y>180</y>
-         <width>271</width>
-         <height>101</height>
+         <width>301</width>
+         <height>121</height>
         </rect>
        </property>
       </widget>
@@ -149,10 +227,13 @@ QPushButton:pressed {
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>60</y>
+         <y>50</y>
          <width>61</width>
-         <height>16</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>ref_rec</string>
@@ -163,9 +244,12 @@ QPushButton:pressed {
         <rect>
          <x>30</x>
          <y>100</y>
-         <width>47</width>
-         <height>14</height>
+         <width>61</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>ref_log</string>
@@ -176,9 +260,12 @@ QPushButton:pressed {
         <rect>
          <x>30</x>
          <y>140</y>
-         <width>71</width>
-         <height>16</height>
+         <width>101</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>type_panne</string>
@@ -189,12 +276,34 @@ QPushButton:pressed {
         <rect>
          <x>30</x>
          <y>180</y>
-         <width>81</width>
-         <height>16</height>
+         <width>91</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>description</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>60</y>
+         <width>151</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>C:/Users/cheri/Downloads/sakani LOGO.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -219,6 +328,7 @@ QPushButton:pressed {
     margin-top: 27px;
     font-size: 14px;
     border-radius: 15px;
+	background-color: rgb(255, 255, 255);
 }
 
 QGroupBox::title  {
@@ -227,6 +337,41 @@ QGroupBox::title  {
     padding: 5px 8000px 5px 8000px;
     background-color: #FF17365D;
     color: rgb(255, 255, 255);
+}
+QLabel {
+	font: 11pt &quot;Adobe Gothic Std B&quot;;
+}
+QLabel{
+	color: rgb(23, 54, 93);
+}
+QLineEdit
+{
+ 
+    background-color: white;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+    font: bold 14px;
+    min-width: 10 em;
+    padding: 6px;
+
+ }
+QComboBox
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    selection-background-color: #111;
+    selection-color: yellow;
+    color: white;
+    
+	background-color: rgb(100, 175, 194);
+    border-style: solid;
+    border: 2px solid ;
+    
+	border-color: rgb(192, 192, 192);
+    border-radius: 5;
+    padding: 1px 0px 1px 20px;
 }</string>
       </property>
       <property name="title">
@@ -236,9 +381,9 @@ QGroupBox::title  {
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>60</y>
-         <width>113</width>
-         <height>20</height>
+         <y>59</y>
+         <width>171</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -291,11 +436,14 @@ QPushButton:pressed {
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>20</x>
          <y>60</y>
          <width>61</width>
-         <height>16</height>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>ref_rec</string>
@@ -306,8 +454,8 @@ QPushButton:pressed {
         <rect>
          <x>120</x>
          <y>100</y>
-         <width>113</width>
-         <height>20</height>
+         <width>171</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -316,29 +464,32 @@ QPushButton:pressed {
         <rect>
          <x>120</x>
          <y>140</y>
-         <width>113</width>
-         <height>20</height>
+         <width>171</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_12">
        <property name="geometry">
         <rect>
-         <x>120</x>
-         <y>210</y>
-         <width>271</width>
-         <height>101</height>
+         <x>110</x>
+         <y>200</y>
+         <width>301</width>
+         <height>111</height>
         </rect>
        </property>
       </widget>
       <widget class="QLabel" name="label_12">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>20</x>
          <y>100</y>
-         <width>61</width>
-         <height>16</height>
+         <width>71</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>ref_log</string>
@@ -347,11 +498,14 @@ QPushButton:pressed {
       <widget class="QLabel" name="label_13">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>20</x>
          <y>140</y>
-         <width>71</width>
-         <height>16</height>
+         <width>91</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>type_panne</string>
@@ -360,14 +514,36 @@ QPushButton:pressed {
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>20</x>
          <y>190</y>
-         <width>61</width>
-         <height>16</height>
+         <width>81</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>description :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>490</x>
+         <y>60</y>
+         <width>151</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>C:/Users/cheri/Downloads/sakani LOGO.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -392,6 +568,7 @@ QPushButton:pressed {
     margin-top: 27px;
     font-size: 14px;
     border-radius: 15px;
+	background-color: rgb(255, 255, 255);
 }
 
 QGroupBox::title  {
@@ -400,7 +577,43 @@ QGroupBox::title  {
     padding: 5px 8000px 5px 8000px;
     background-color: #FF17365D;
     color: rgb(255, 255, 255);
-}</string>
+}
+QLabel {
+	font: 11pt &quot;Adobe Gothic Std B&quot;;
+}
+QLabel{
+	color: rgb(23, 54, 93);
+}
+QLineEdit
+{
+ 
+    background-color: white;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+    font: bold 14px;
+    min-width: 10 em;
+    padding: 6px;
+
+ }
+QComboBox
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    selection-background-color: #111;
+    selection-color: yellow;
+    color: white;
+    
+	background-color: rgb(100, 175, 194);
+    border-style: solid;
+    border: 2px solid ;
+    
+	border-color: rgb(192, 192, 192);
+    border-radius: 5;
+    padding: 1px 0px 1px 20px;
+}
+</string>
       </property>
       <property name="title">
        <string>Gestion de maintenace</string>
@@ -410,8 +623,8 @@ QGroupBox::title  {
         <rect>
          <x>120</x>
          <y>60</y>
-         <width>113</width>
-         <height>20</height>
+         <width>161</width>
+         <height>31</height>
         </rect>
        </property>
       </widget>
@@ -466,12 +679,34 @@ QPushButton:pressed {
         <rect>
          <x>40</x>
          <y>60</y>
-         <width>61</width>
-         <height>16</height>
+         <width>81</width>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>Reference :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>480</x>
+         <y>60</y>
+         <width>151</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>C:/Users/cheri/Downloads/sakani LOGO.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
