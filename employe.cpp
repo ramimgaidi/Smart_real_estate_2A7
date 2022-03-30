@@ -188,9 +188,75 @@ else
 
 
 
-
     }
 }
 return -1;
 
 }
+QSqlQueryModel * employe::trinom()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EMPLOYE ORDER BY nom");
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("matricule"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("adresse"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("email"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("tel"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("date_embauche"));
+
+    return model;
+}
+QSqlQueryModel * employe::trimat()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EMPLOYE ORDER BY matricule");
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("matricule"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("adresse"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("email"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("tel"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("date_embauche"));
+
+    return model;
+}
+
+
+
+QSqlQueryModel * employe::tridate()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EMPLOYE ORDER BY date_embauche");
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("matricule"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("adresse"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("email"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("tel"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("date_embauche"));
+
+    return model;
+}
+
+void employe :: recherche(QTableView * table ,QString nom, QString matricule,QString date_embauche )
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+
+    QSqlQuery *query=new QSqlQuery;
+    query->prepare("select * from EMPLOYE where NOM like '%"+nom+"%' or MATRICULE like '%"+matricule+"%' or DATE_EMBAUCHE like '%"+date_embauche+"%' ;");
+
+
+    query->exec();
+    model->setQuery(*query);
+    table->setModel(model);
+    table->show();
+
+
+
+}
+
+

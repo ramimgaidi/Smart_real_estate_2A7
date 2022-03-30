@@ -31,6 +31,18 @@ private slots:
 
     void on_supprimer_clicked();
 
+    void on_radioButton_4_clicked();
+
+    void on_radioButton_5_clicked();
+
+    void on_radioButton_6_clicked();
+
+    void on_recher_edit2_textChanged(const QString &arg1);
+
+    void on_comboBox_activated(const QString &arg1);
+
+    void on_afficher_liste_clicked();
+
 private:
     employe E;
     Ui::MainWindow *ui;

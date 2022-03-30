@@ -6,6 +6,11 @@
 #include <QObject>
 #include <QMessageBox>
 #include "connection.h"
+#include <QFileDialog>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QPrintDialog>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cin->setValidator(new QIntValidator(0, 99999999, this));
     ui->tel->setValidator(new QIntValidator(0, 99999999, this));
     ui->tableView->setModel(E.afficher());
-
+    ui->comboBox->addItem("");
+    ui->comboBox_2->addItem("");
 }
 
 MainWindow::~MainWindow()
@@ -126,6 +132,8 @@ void MainWindow::on_ajouter_employe_clicked()
         {
         if(test)
         {msgbox.setText("Ajout avec succes.");
+            ui->comboBox->addItem(ui->matricule_2->text());
+                    ui->comboBox_2->addItem(ui->matricule_2->text());
             ui->tableView->setModel(E.afficher());
             ui->nom->setText("");
             ui->prenom->setText("");
@@ -152,7 +160,7 @@ void MainWindow::on_ajouter_employe_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    int matricule=ui->matricule_3->text().toInt();
+    int matricule=ui->comboBox->currentIndex();
     QString nom=ui->nom_3->text();
     QString prenom=ui->prenom_3->text();
     int cin=ui->cin_3->text().toInt();
@@ -165,7 +173,7 @@ void MainWindow::on_pushButton_clicked()
     employe E(matricule,nom,prenom,cin,adresse,email,tel,date_embauche,heure,prix_heure);
 
 
-        E.setmatricule(ui->matricule_3->text().toInt()) ;
+        E.setmatricule(ui->comboBox->currentIndex()) ;
         bool test=E.modifier(E.getmatricule()) ;
 
         QMessageBox msgBox;
@@ -197,7 +205,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_supprimer_clicked()
 {
-    employe E1; E1.setmatricule(ui->matricule_4->text().toInt());
+    employe E1; E1.setmatricule(ui->comboBox_2->currentText().toInt());
     bool test=E1.supprimer(E1.getmatricule());
     QMessageBox msgbox;
     /*if(test)
@@ -215,6 +223,8 @@ void MainWindow::on_supprimer_clicked()
         switch (ret) {
         case QMessageBox::Ok:
             ui->tableView->setModel(E.afficher());
+            ui->comboBox_2->removeItem(ui->comboBox_2->currentIndex());
+            ui->comboBox->removeItem(ui->comboBox_2->currentIndex());
             videz_label();
             msgbox.setText("Suppression avec succes...");
             msgbox.setStandardButtons(QMessageBox::Ok);
@@ -235,11 +245,18 @@ void MainWindow::afficherBD()
 {
 employe afe;
 ui->tableView->setModel(afe.afficher());
+QSqlQuery qry;
+qry.prepare("select matricule from employe");
+qry.exec();
+while(qry.next())
+{
+    ui->comboBox->addItem(qry.value("matricule").toString());
+    ui->comboBox_2->addItem(qry.value("matricule").toString());
+}
 
 }
 void MainWindow::videz_label()
 {
-    ui->matricule_4->setText("");
     ui->matricule_2->setText("");
     ui->nom->setText("");
     ui->prenom->setText("");
@@ -250,7 +267,6 @@ void MainWindow::videz_label()
     ui->date_embauche->setText("");
     ui->heure->setText("");
     ui->prix_heure->setText("");
-    ui->matricule_3->setText("");
     ui->nom_3->setText("");
     ui->prenom_3->setText("");
     ui->cin_3->setText("");
@@ -263,3 +279,113 @@ void MainWindow::videz_label()
 
 }
 
+
+void MainWindow::on_radioButton_4_clicked()
+{
+    ui->tableView->setModel(E.trinom());
+}
+
+void MainWindow::on_radioButton_5_clicked()
+{
+    ui->tableView->setModel(E.trimat());
+
+}
+
+void MainWindow::on_radioButton_6_clicked()
+{
+    ui->tableView->setModel(E.tridate());
+
+}
+
+
+void MainWindow::on_recher_edit2_textChanged(const QString &arg1)
+{
+    employe e;
+
+
+    QString nom = ui->recher_edit2->text();
+     QString matricule = ui->recher_edit2->text();
+      QString date = ui->recher_edit2->text();
+    e.recherche(ui->tableView,nom,matricule,date);
+    if (ui->recher_edit2->text().isEmpty())
+    {
+       ui->tableView->setModel(e.afficher());
+    }
+}
+
+void MainWindow::on_comboBox_activated(const QString &arg1)
+{
+    QSqlQuery query;
+        int matricule=ui->comboBox->currentIndex() ;
+       query.prepare("Select * from employe where matricule=:matricule" );
+               query.bindValue(0,matricule) ;
+               query.exec();
+        query.next() ;
+       // F.FINANCE(FINANCE);
+        ui->nom_3->setText(query.value("nom").toString());
+        ui->prenom_3->setText(query.value("prenom").toString());
+         ui->cin_3->setText(query.value(3).toString());
+         ui->adresse_3->setText(query.value("adresse").toString());
+         ui->email_3->setText(query.value("email").toString());
+         ui->tel_3->setText(query.value(6).toString());
+         ui->date_embauche_3->setText(query.value("date_embauche").toString());
+         ui->heure_3->setText(query.value(8).toString());
+         ui->prix_heure_3->setText(query.value(9).toString());
+
+
+}
+
+void MainWindow::on_afficher_liste_clicked()
+{
+    QString strStream;
+                          QTextStream out(&strStream);
+
+                           const int rowCount = ui->tableView->model()->rowCount();
+                           const int columnCount = ui->tableView->model()->columnCount();
+                          out <<  "<html>\n"
+                          "<head>\n"
+                                           "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                                           <<  QString("<title>%1</title>\n").arg("strTitle")
+                                           <<  "</head>\n"
+                                           "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                                          //     "<align='right'> " << datefich << "</align>"
+                                           "<center> <H1>Liste des employes</H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+
+                                       // headers
+                                       out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                                       out<<"<cellspacing=10 cellpadding=3>";
+                                       for (int column = 0; column < columnCount; column++)
+                                           if (!ui->tableView->isColumnHidden(column))
+                                               out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
+                                       out << "</tr></thead>\n";
+
+                                       // data table
+                                       for (int row = 0; row < rowCount; row++) {
+                                           out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                                           for (int column = 0; column < columnCount; column++) {
+                                               if (!ui->tableView->isColumnHidden(column)) {
+                                                   QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
+                                                   out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                                               }
+                                           }
+                                           out << "</tr>\n";
+                                       }
+                                       out <<  "</table> </center>\n"
+                                           "</body>\n"
+                                           "</html>\n";
+
+                                 QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                                   if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                                  QPrinter printer (QPrinter::PrinterResolution);
+                                   printer.setOutputFormat(QPrinter::PdfFormat);
+                                  printer.setPaperSize(QPrinter::A4);
+                                 printer.setOutputFileName(fileName);
+
+                                  QTextDocument doc;
+                                   doc.setHtml(strStream);
+                                   doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                                   doc.print(&printer);
+
+}

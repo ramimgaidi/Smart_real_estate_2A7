@@ -3,6 +3,8 @@
 #include <QDate>
 #include <QString>
 #include <QSqlQueryModel>
+#include <QTableView>
+
 class employe
 {
 public:
@@ -34,6 +36,11 @@ public:
    // bool modifier(int,QString,QString,int,QString,QString,int,QString);
     bool modifier(int);
     int controle_saisieA(QString,QString);
+    QSqlQueryModel* trinom();
+        QSqlQueryModel* trimat();
+        QSqlQueryModel* tridate();
+        void recherche(QTableView * tabl, QString,QString,QString);
+
 private:
     QString nom,prenom,adresse,email,date_embauche;
     int matricule,tel,cin,heure,prix_heure;
