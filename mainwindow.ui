@@ -19,7 +19,7 @@
      <rect>
       <x>80</x>
       <y>10</y>
-      <width>631</width>
+      <width>661</width>
       <height>451</height>
      </rect>
     </property>
@@ -66,7 +66,7 @@ QTabBar::tab:!selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -438,7 +438,7 @@ QPushButton:pressed {
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>601</width>
+        <width>551</width>
         <height>291</height>
        </rect>
       </property>
@@ -446,7 +446,7 @@ QPushButton:pressed {
      <widget class="QPushButton" name="afficher_liste">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>400</x>
         <y>250</y>
         <width>142</width>
         <height>31</height>
@@ -551,6 +551,32 @@ QPushButton:pressed {
         <width>113</width>
         <height>20</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>60</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Qrcode</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="qrcode">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>100</y>
+        <width>121</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>

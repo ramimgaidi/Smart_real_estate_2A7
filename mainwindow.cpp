@@ -10,6 +10,25 @@
 #include <QTextDocument>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QIntValidator>
+#include<QWidget>
+#include <QTextDocument>
+#include <QTextEdit>
+#include <fstream>
+#include <QTextStream>
+#include <QRadioButton>
+#include <QFileDialog>
+#include <QPixmap>
+#include <QPainter>
+#include <QtSvg/QSvgRenderer>
+#include <QtSvg/QSvgGenerator>
+#include<QDirModel>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QAbstractPrintDialog>
+#include<QDirModel>
+#include <QtPrintSupport/QPrintDialog>
+#include "qrcode.h"
+#include "qrwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -388,4 +407,26 @@ void MainWindow::on_afficher_liste_clicked()
                                    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
                                    doc.print(&printer);
 
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    if(ui->tableView->currentIndex().row()==-1)
+                            QMessageBox::information(nullptr, QObject::tr("Suppression"),
+                                                     QObject::tr("Veuillez Choisir un contrat du Tableau.\n"
+                                                                 "Click Ok to exit."), QMessageBox::Ok);
+                        else
+                        {
+                             int  Code=ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(),0)).toInt();
+                             const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(std::to_string(Code).c_str(), qrcodegen::QrCode::Ecc::LOW);
+                             std::ofstream myfile;
+                             myfile.open ("qrcode.svg") ;
+                             myfile << qr.toSvgString(1);
+                             myfile.close();
+                             QSvgRenderer svgRenderer(QString("qrcode.svg"));
+                             QPixmap pix( QSize(90, 90) );
+                             QPainter pixPainter( &pix );
+                             svgRenderer.render(&pixPainter);
+                             ui->qrcode->setPixmap(pix);
+                        }
 }

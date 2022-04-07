@@ -5,6 +5,9 @@
 #-------------------------------------------------
 
 QT       += core gui sql printsupport
+QT       += multimedia multimediawidgets
+QT       += network
+QT       += svg
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -30,13 +33,19 @@ SOURCES += \
     login.cpp \
         main.cpp \
         mainwindow.cpp \
-    connection.cpp
+    connection.cpp \
+    qrcode.cpp \
+    qrcodegeneratordemo.cpp \
+    qrcodegeneratorworker.cpp \
+    qrwidget.cpp
 
 HEADERS += \
     employe.h \
     login.h \
         mainwindow.h \
-    connection.h
+    connection.h \
+    qrcode.h \
+    qrwidget.h
 
 FORMS += \
         login.ui \

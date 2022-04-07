@@ -43,6 +43,8 @@ private slots:
 
     void on_afficher_liste_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     employe E;
     Ui::MainWindow *ui;
