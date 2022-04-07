@@ -5,11 +5,25 @@
 #-------------------------------------------------
 
 QT       += core gui sql printsupport
-
+QT += core gui network
+ greaterThan(QT_MAJOR_VERSION, 4){
+         QT += widgets
+         QT += printsupport
+}
+win64{
+    LIBS += -L"C:\OpenSSL-Win64\lib" -lubsec
+    INCLUDEPATH += C:\OpenSSL-Win64/include
+}
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Atelier_Connexion
 TEMPLATE = app
+CONFIG += c++11
+
+
+DEFINES += SMTP_BUILD
+win64:CONFIG += dll
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -25,15 +39,43 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
+         connection.cpp \
+         main.cpp \
         mainwindow.cpp \
-    connection.cpp \
-    reclamation.cpp
+        reclamation.cpp  \
+   src/emailaddress.cpp \
+   src/mimeattachment.cpp \
+    src/mimecontentformatter.cpp \
+    src/mimefile.cpp \
+    src/mimehtml.cpp \
+    src/mimeinlinefile.cpp \
+    src/mimemessage.cpp \
+    src/mimemultipart.cpp \
+    src/mimepart.cpp \
+    src/mimetext.cpp \
+    src/quotedprintable.cpp \
+    src/smtpclient.cpp
+
 
 HEADERS += \
-        mainwindow.h \
     connection.h \
-    reclamation.h
+    mainwindow.h \
+    reclamation.h \
+    src/SmtpMime \
+    src/emailaddress.h \
+    src/mimeattachment.h \
+    src/mimecontentformatter.h \
+    src/mimefile.h \
+    src/mimehtml.h \
+    src/mimeinlinefile.h \
+    src/mimemessage.h \
+    src/mimemultipart.h \
+    src/mimepart.h \
+    src/mimetext.h \
+    src/quotedprintable.h \
+    src/smtpclient.h \
+    src/smtpexports.h \
+
 
 FORMS += \
         mainwindow.ui

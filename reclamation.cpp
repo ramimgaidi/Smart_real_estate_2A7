@@ -8,21 +8,24 @@
 reclamation::reclamation()
 {
 ref_rec=0;
+ref_log=0;
+
 }
 
-reclamation::reclamation(int ref_rec,QString type_panne,QString description)
+reclamation::reclamation(int ref_rec,int ref_log,QString type_panne,QString description)
 {
-   this->ref_rec=ref_rec;this->type_panne=type_panne;this->description=description;
+   this->ref_rec=ref_rec;this->ref_log=ref_log;this->type_panne=type_panne;this->description=description;
 }
 
 int reclamation::getref_rec(){return ref_rec;}
-
+int reclamation::getref_log(){return ref_log;}
 QString reclamation::gettype_panne(){return type_panne;}
 QString reclamation::getdescription(){return description;}
 void reclamation::setref_rec(int ref_rec){this->ref_rec=ref_rec;}
-
+void reclamation::setref_log(int ref_log){this->ref_log=ref_log;}
 void reclamation::settype_panne(QString type_panne){this->type_panne=type_panne;}
 void reclamation::setdescription(QString description){this->description=description;}
+
 
 
 bool reclamation::ajouter()
@@ -31,12 +34,12 @@ bool reclamation::ajouter()
 
         QSqlQuery query;
         if(controle_saisieA(type_panne,description))
-        query.prepare("INSERT INTO MAINTENANCE (ref_rec, type_panne , description) "
-                       "VALUES (:ref_rec, :type_panne , :description)");
+        query.prepare("INSERT INTO MAINTENANCE (ref_rec,ref_log , type_panne , description) "
+                       "VALUES (:ref_rec,:ref_log , :type_panne , :description)");
          query.bindValue(0, ref_rec_string);
-
-         query.bindValue(1, type_panne);
-         query.bindValue(2, description);
+         query.bindValue(1, ref_log);
+         query.bindValue(2, type_panne);
+         query.bindValue(3, description);
          return  query.exec();
     }
 
@@ -45,11 +48,22 @@ QSqlQueryModel* reclamation::afficher()
     QSqlQueryModel* model=new QSqlQueryModel;
           model->setQuery("SELECT* FROM maintenance");
           model->setHeaderData(0, Qt::Horizontal, QObject::tr("ref_rec"));
-          model->setHeaderData(1, Qt::Horizontal, QObject::tr("type_panne"));
-          model->setHeaderData(2, Qt::Horizontal, QObject::tr("description"));
+          model->setHeaderData(1, Qt::Horizontal, QObject::tr("ref_log"));
+          model->setHeaderData(2, Qt::Horizontal, QObject::tr("type_panne"));
+          model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
+
+    return model;  
+}
+QSqlQueryModel* reclamation::afficher2()
+{
+    QSqlQueryModel* model=new QSqlQueryModel;
+          model->setQuery("SELECT ref_log FROM LOGEMENT");
+          model->setHeaderData(0, Qt::Horizontal, QObject::tr("ref_log"));
+
 
     return model;
 }
+
 bool reclamation::modifier(int ref_rec)
     {
         Connection c;
@@ -57,14 +71,16 @@ bool reclamation::modifier(int ref_rec)
 
     QSqlQuery query;
      if(controle_saisieA2(type_panne,description))
-    query.prepare("Update maintenance set  type_panne= :type_panne, description =:description where ref_rec= :ref_rec ");
+    query.prepare("Update maintenance set  ref_log= :ref_log,type_panne= :type_panne, description =:description where ref_rec= :ref_rec ");
 
      query.bindValue(":ref_rec",ref_rec);
-
+     query.bindValue(":ref_log",ref_log);
      query.bindValue(":type_panne", type_panne);
      query.bindValue(":description", description);
     return query.exec();
     }
+
+
 
 bool reclamation::supprimer(int ref_rec)
 {
@@ -73,6 +89,7 @@ bool reclamation::supprimer(int ref_rec)
           query.bindValue(0, ref_rec);
     return query.exec();
 }
+
 int reclamation::controle_saisieA(QString type_panne,QString description)
 {
 if(type_panne == "" && description == "")
@@ -158,6 +175,8 @@ else
 return -1;
 
 }
+
+
 int reclamation::controle_saisieA2(QString type_panne,QString description)
 {
 if(type_panne == "" && description == "")
@@ -243,32 +262,37 @@ else
 return -1;
 
 }
+
 QSqlQueryModel *reclamation::tri_ref_rec()
 {
     QSqlQueryModel *model=new QSqlQueryModel();
     model->setQuery("select *from maintenance order by ref_rec" );
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ref_rec"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("type_panne"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("description"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("ref_log"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("type_panne"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
 
 
     return model;
 
 }
+
 QSqlQueryModel *reclamation::tri_type_panne()
 {
     QSqlQueryModel *model=new QSqlQueryModel();
     model->setQuery("select *from maintenance order by type_panne" );
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ref_rec"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("type_panne"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("description"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("ref_log"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("type_panne"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
 
     return model;
 
 }
+
 QSqlQueryModel *reclamation::rechercher(QString rech)
 {
     QSqlQueryModel *model= new QSqlQueryModel();
-    model->setQuery("SELECT * FROM maintenance WHERE ref_rec  LIKE'%"+rech+"%' or type_panne  LIKE'%"+rech+"%' or description  LIKE'%"+rech+"%'  ");
+    model->setQuery("SELECT * FROM maintenance WHERE ref_rec  LIKE'%"+rech+"%' or ref_log  LIKE'%"+rech+"%' or type_panne  LIKE'%"+rech+"%' or description  LIKE'%"+rech+"%'  ");
     return model;
 }

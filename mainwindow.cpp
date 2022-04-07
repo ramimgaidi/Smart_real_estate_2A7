@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include "reclamation.h"
 #include <QSqlQuery>
 #include <QDebug>
@@ -10,6 +11,13 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QTextDocument>
+#include "src/SmtpMime"
+
+    #include <QPrintDialog>
+    #include <QPainter>
+
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -28,13 +36,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     int ref_rec=ui->lineEdit->text().toInt();
-
+   int ref_log=ui->comboBox_6->currentText().toInt();
      QString type_panne=ui->comboBox_3->currentText();
      QString description=ui->lineEdit_11->text();
-    reclamation R(ref_rec,type_panne,description);
+    reclamation R(ref_rec,ref_log,type_panne,description);
      bool test=R.ajouter();
     QMessageBox msgbox;
-    if(ref_rec!=0 && type_panne.size()>0 && description.size()>0 )
+    if(ref_rec!=0 && ref_log!=0 && type_panne.size()>0 && description.size()>0 )
     {
     if(test)
     {msgbox.setText("Ajout avec succes.");
@@ -59,10 +67,10 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     int ref_rec=ui->comboBox->currentIndex();
-
+         int ref_log=ui->comboBox_7->currentIndex();
         QString type_panne=ui->comboBox_4->currentText();
         QString description=ui->lineEdit_12->text();
-        reclamation R(ref_rec,type_panne,description);
+        reclamation R(ref_rec,ref_log,type_panne,description);
 
 
 
@@ -117,7 +125,7 @@ void MainWindow::on_comboBox_activated(const QString &arg1)
                query.exec();
         query.next() ;
 
-
+        ui->comboBox_7->setCurrentText(query.value("ref_log").toString());
         ui->comboBox_4->setCurrentText(query.value("type_panne").toString());
         ui->lineEdit_12->setText(query.value("description").toString());
 
@@ -135,10 +143,26 @@ while(qry.next())
 {
     ui->comboBox->addItem(qry.value("ref_rec").toString());
     ui->comboBox_2->addItem(qry.value("ref_rec").toString());
-}
 
 }
 
+}
+
+void MainWindow::afficherBD2()
+{
+reclamation afe;
+ui->tableView->setModel(afe.afficher2());
+QSqlQuery qry;
+qry.prepare("select ref_log from LOGEMENT");
+qry.exec();
+while(qry.next())
+{
+    ui->comboBox_6->addItem(qry.value("ref_log").toString());
+    ui->comboBox_7->addItem(qry.value("ref_log").toString());
+
+}
+
+}
 void MainWindow::on_pushButton_7_clicked()
 {
     reclamation R;
@@ -210,5 +234,69 @@ void MainWindow::on_pushButton_6_clicked()
                                    doc.setHtml(strStream);
                                    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
                                    doc.print(&printer);
+
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+   QString ref_log=ui->comboBox_6->currentText();
+   QString type_panne=ui->comboBox_3->currentText();
+   QString description=ui->lineEdit_11->text();
+        SmtpClient smtp("smtp.gmail.com", 465, SmtpClient::SslConnection);
+
+        // We need to set the username (your email address) and password
+        // for smtp authentification.
+
+        smtp.setUser("cherifrayen05@gmail.com");
+        smtp.setPassword("RC53031337");
+
+        // Now we create a MimeMessage object. This is the email.
+
+        MimeMessage message;
+
+        EmailAddress sender("cherifrayen05@gmail.com", "service maintenance sakanai");
+        message.setSender(&sender);
+
+        EmailAddress to("cherifrayenbs@gmail.com", "technicien");
+        message.addRecipient(&to);
+
+        message.setSubject("RECLAMATION");
+
+
+
+        MimeText text;
+            QString messagetext = "panne de type " ;
+            messagetext=messagetext+type_panne+" dans logement numero "+ref_log +" **description du panne: " +description;
+            text.setText(messagetext);
+            message.addPart(&text);
+
+        // Now we can send the mail
+
+        smtp.connectToHost();
+           smtp.login();
+           if(smtp.sendMail(message))
+           {
+             QMessageBox::information(this,"ok", "mail envoyé");
+          }
+                     else
+           {
+               QMessageBox::critical(this,"error", "mail invalid");
+           }
+
+
+           smtp.quit();
+        smtp.quit();
+
+  }
+
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    QPrinter printer;
+      printer.setPageMargins(10.0,10.0,10.0,10.0,printer.Millimeter);
+      QPrintDialog *dialog = new QPrintDialog(&printer, this);
+      dialog->setWindowTitle(tr("Print Document"));
+      if (dialog->exec() != QDialog::Accepted)
+        return;
 
 }
