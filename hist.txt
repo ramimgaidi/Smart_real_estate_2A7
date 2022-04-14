@@ -1,0 +1,46 @@
+id_finance: 2 type_trans: cheque revenance: 2 date: sam. janv. 1 2000
+id_finance: 4 type_trans: cheque revenance: 55 date: mar. janv. 1 2030
+id_finance: 5 type_trans: cheque revenance: 5 date: mer. févr. 2 2022
+id_finance: 1 type_trans: cheque revenance: 1 date: mar. janv. 1 2030
+id_finance: 2 type_trans: cheque revenance: 2 date: dim. janv. 1 2040
+id_finance: 3 type_trans: cheque revenance: 3 date: mer. janv. 1 2020
+id_finance: 1 type_trans: cheque revenance: 1 date: mer. janv. 1 2020
+id_finance: 2 type_trans: cheque revenance: 2 date: sam. janv. 1 2022
+id_finance: 3 type_trans: cheque revenance: 3 date: dim. janv. 1 2023
+id_finance: 3 type_trans: cheque revenance: 3 date: sam. janv. 1 2022
+id_finance: 4 type_trans: espece revenance: 4 date: lun. janv. 1 2001
+id_finance: 5 type_trans: cheque revenance: 5 date: mer. janv. 1 2020
+id_finance: 5555 type_trans: cheque revenance: 555 date: sam. janv. 1 2000
+id_finance: 88 type_trans: cheque revenance: 88 date: sam. janv. 1 2000
+id_finance: 222 type_trans: espece revenance: 2222 date: dim. avr. 22 2040
+id_finance: 12 type_trans: cheque revenance: 12 date: dim. janv. 1 2040
+id_finance:  type_trans: cheque revenance:  date: dim. janv. 1 2040
+id_finance: 13 type_trans: cheque revenance: 13 date: mer. janv. 1 2020
+id_finance: 1 type_trans: cheque revenance: 1 date: sam. janv. 1 2000
+id_finance: 2 type_trans: cheque revenance: 2 date: mer. janv. 1 2020
+id_finance: 3 type_trans: cheque revenance: 3 date: dim. mars 20 2022
+id_finance: 3 type_trans: espece revenance: 3 date: sam. janv. 1 2022
+id_finance: 4 type_trans: espece revenance: 4 date: sam. janv. 1 2022
+id_finance: 7 type_trans: cheque revenance: 100 date: sam. janv. 1 2000
+id_finance: 8 type_trans: cheque revenance: 100 date: sam. janv. 1 2000
+id_finance: 6 type_trans: cheque revenance: 1200 date: sam. janv. 1 2000
+id_finance: 66 type_trans: cheque revenance: 100 date: sam. janv. 1 2000
+id_finance: 5 type_trans: cheque revenance: 5 date: sam. janv. 1 2000
+id_finance: 6 type_trans: cheque revenance: 999 date: sam. janv. 1 2000
+<<<<<<< HEAD
+id_finance: 12345678 type_trans: cheque revenance: 400 date: sam. janv. 1 2000
+id_finance: 4 type_trans: cheque revenance: 4 date: sam. janv. 1 2022
+id_finance: 4 type_trans: cheque revenance: 400 date: sam. janv. 1 2000
+lun. avr. 4 23:56:22 2022id_finance: 5 type_trans: cheque revenance: 500 date: sam. janv. 1 2000
+lun. avr. 4 23:57:44 2022
+ id_finance: 6 type_trans: cheque revenance: 6 date: sam. janv. 1 2000
+lun. avr. 4 23:58:26 2022
+id_finance: 7 type_trans: cheque revenance: 7 date: sam. janv. 1 2000
+lun. avr. 4 23:59:34 2022
+-id_finance: 8 type_trans: cheque revenance: 8 date: sam. janv. 1 2000
+mar. avr. 5 00:00:07 2022
+- id_finance: 9 type_trans: cheque revenance: 9 date: sam. janv. 1 2000
+mar. avr. 5 00:02:12 2022
+- id_finance: 998 type_trans: cheque revenance: 999 date: sam. janv. 1 2000
+=======
+>>>>>>> 04e4a18be1cd1ce5334637b96e049d6e6bee4af1
