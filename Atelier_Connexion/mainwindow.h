@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 #include "logement.h"
 #include <QMainWindow>
-
+#include <QVariant>
+#include "arduino.h"
 namespace Ui {
 class MainWindow;
 }
@@ -29,9 +30,19 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
 private:
     Logement L;
+    Arduino A;
     Ui::MainWindow *ui;
+signals:
+    void setCenter(QVariant, QVariant);
+    void addMarker(QVariant, QVariant);
 };
 
 #endif // MAINWINDOW_H

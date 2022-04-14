@@ -81,7 +81,7 @@ bool Logement::supprimer(int ref_log)
 QSqlQueryModel *Logement::rechercher(QString rech)
 {
     QSqlQueryModel *model= new QSqlQueryModel();
-    model->setQuery("SELECT * FROM Logement WHERE ref_log  LIKE'%"+rech+"%' or type_log  LIKE'%"+rech+"%' or dispo_log  LIKE'%"+rech+"%' ");
+    model->setQuery("SELECT * FROM Logement WHERE ref_log  LIKE'%"+rech+"%' or type_log  LIKE'%"+rech+"%' or dispo_log  LIKE'%"+rech+"%' "); //recherche avance par reference, type et disponibilité
     return model;
 }
 QSqlQueryModel *Logement::tri_ref_log()

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "logement.h"
+
+#include<QQuickItem>
 #include <QSqlQuery>
 #include <QDebug>
 #include <QObject>
@@ -11,6 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
+    ui->quickWidget->show();
+
+    auto obj = ui->quickWidget->rootObject();
+    connect(this, SIGNAL(setCenter(QVariant, QVariant)), obj, SLOT(setCenter(QVariant, QVariant)));
+    connect(this, SIGNAL(addMarker(QVariant, QVariant)), obj, SLOT(addMarker(QVariant, QVariant)));
+
+    emit setCenter(25.000, 50.000);
+    emit addMarker(25.000, 50.000);
     ui->lineEdit->setValidator   ( new QIntValidator(0, 999, this));
     ui->lineEdit_16->setValidator( new QIntValidator(1, 99999999, this));
     ui->lineEdit_17->setValidator( new QIntValidator(1, 7, this));
@@ -170,3 +181,14 @@ void MainWindow::on_pushButton_4_clicked()
             ui->tableView->setModel(L.tri_dispo_log());
         }
            }
+
+
+void MainWindow::on_pushButton_5_clicked()
+{
+     A.write_to_arduino("1"); //envoyer 1 à arduino
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+     A.write_to_arduino("0"); //envoyer 0 à arduino
+}
