@@ -242,12 +242,12 @@ QSqlQueryModel * employe::tridate()
     return model;
 }
 
-void employe :: recherche(QTableView * table ,QString nom, QString matricule,QString date_embauche )
+void employe :: recherche(QTableView * table ,QString nom, QString matricule )
 {
     QSqlQueryModel *model= new QSqlQueryModel();
 
     QSqlQuery *query=new QSqlQuery;
-    query->prepare("select * from EMPLOYE where NOM like '%"+nom+"%' or MATRICULE like '%"+matricule+"%' or DATE_EMBAUCHE like '%"+date_embauche+"%' ;");
+    query->prepare("select * from EMPLOYE where NOM like '%"+nom+"%' or MATRICULE like '%"+matricule+"%'  ;");
 
 
     query->exec();

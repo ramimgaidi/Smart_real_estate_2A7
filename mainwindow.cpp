@@ -324,8 +324,8 @@ void MainWindow::on_recher_edit2_textChanged(const QString &arg1)
 
     QString nom = ui->recher_edit2->text();
      QString matricule = ui->recher_edit2->text();
-      QString date = ui->recher_edit2->text();
-    e.recherche(ui->tableView,nom,matricule,date);
+
+    e.recherche(ui->tableView,nom,matricule);
     if (ui->recher_edit2->text().isEmpty())
     {
        ui->tableView->setModel(e.afficher());

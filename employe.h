@@ -39,7 +39,7 @@ public:
     QSqlQueryModel* trinom();
         QSqlQueryModel* trimat();
         QSqlQueryModel* tridate();
-        void recherche(QTableView * tabl, QString,QString,QString);
+        void recherche(QTableView * tabl, QString,QString);
 
 private:
     QString nom,prenom,adresse,email,date_embauche;
