@@ -28,7 +28,10 @@ int controle_saisieA(QString,QString );
 int controle_saisieA2(QString,QString );
 QSqlQueryModel *tri_ref_rec();
    QSqlQueryModel *tri_type_panne();
- QSqlQueryModel *rechercher(QString);
+   QSqlQueryModel *tri_ref_log();
+
+   QSqlQueryModel *rechercher(QString);
+
 private:
     int ref_rec,ref_log;
     QString type_panne,description;

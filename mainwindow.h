@@ -3,6 +3,10 @@
 #include "reclamation.h"
 #include <QMainWindow>
 #include "src/SmtpMime"
+#include <QPrinter>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QTextDocument>
 namespace Ui {
 class MainWindow;
 }
@@ -18,6 +22,7 @@ public:
 
     void afficherBD();
 void afficherBD2();
+QString filename;
 private slots:
     void on_pushButton_clicked();
 
@@ -36,6 +41,8 @@ private slots:
     void on_pushButton_5_clicked();
 
     void on_pushButton_8_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     reclamation R;

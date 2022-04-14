@@ -66,7 +66,7 @@ QTabBar::tab:!selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Tab">
      <attribute name="title">
@@ -307,7 +307,7 @@ QPushButton:pressed {
        </item>
        <item>
         <property name="text">
-         <string>panne radiateur</string>
+         <string>radiateur</string>
         </property>
        </item>
        <item>
@@ -399,6 +399,41 @@ QPushButton:pressed {
        </property>
        <property name="scaledContents">
         <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>200</y>
+         <width>172</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    color: rgb(255, 255, 255);
+  background-color: #FF17365D;
+    border-style: outset;
+    border-width: 0px;
+    border-radius: 10px;
+    border-color: beige;
+    min-width: 10em;
+    padding: 6px;
+}
+QPushButton:hover {
+color: #fff;
+    background-color: rgb(43, 163, 255);
+    border-style: inset;
+}
+QPushButton:pressed {
+    background-color: rgb(43, 163, 255);
+    border-style: inset;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>SMS</string>
        </property>
       </widget>
      </widget>
@@ -988,6 +1023,11 @@ QPushButton:pressed {
       <item>
        <property name="text">
         <string>type_panne</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ref_log</string>
        </property>
       </item>
      </widget>

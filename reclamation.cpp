@@ -4,7 +4,14 @@
 #include <QObject>
 #include <QMessageBox>
 #include "connection.h"
-
+#include <QPrinter>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QTextDocument>
+#include <QPrintDialog>
+#include <QPainter>
+#include <QTextEdit>
+#include <QTextCursor>
 reclamation::reclamation()
 {
 ref_rec=0;
@@ -290,9 +297,46 @@ QSqlQueryModel *reclamation::tri_type_panne()
 
 }
 
+QSqlQueryModel *reclamation::tri_ref_log()
+{
+    QSqlQueryModel *model=new QSqlQueryModel();
+    model->setQuery("select *from maintenance order by ref_log" );
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ref_rec"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("ref_log"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("type_panne"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
+
+    return model;
+
+}
 QSqlQueryModel *reclamation::rechercher(QString rech)
 {
     QSqlQueryModel *model= new QSqlQueryModel();
     model->setQuery("SELECT * FROM maintenance WHERE ref_rec  LIKE'%"+rech+"%' or ref_log  LIKE'%"+rech+"%' or type_panne  LIKE'%"+rech+"%' or description  LIKE'%"+rech+"%'  ");
     return model;
+}
+void pdf(QString filename)
+{
+QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(filename);
+    printer.setPageMargins(QMarginsF(30, 30, 30, 30));
+
+    QFont headerFont("Times New Roman", 8);
+    QFont titleFont("Times New Roman", 14, QFont::Bold);
+
+    QTextCharFormat txtformat = QTextCharFormat();
+
+
+    QTextDocument doc;
+    doc.setPageSize(printer.pageRect().size());
+
+    QTextCursor* cursor = new QTextCursor(&doc);
+
+    txtformat.setFont(headerFont);
+    cursor->insertText("Company XYZ", txtformat);
+
+
+    doc.print(&printer);
 }

@@ -11,12 +11,10 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QTextDocument>
+#include <QPrintDialog>
+#include <QPainter>
 #include "src/SmtpMime"
-
-    #include <QPrintDialog>
-    #include <QPainter>
-
-
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -175,6 +173,11 @@ void MainWindow::on_pushButton_7_clicked()
         {
             ui->tableView->setModel(R.tri_type_panne());
         }
+        else if(crit=="ref_log")
+        {
+            ui->tableView->setModel(R.tri_type_panne());
+        }
+
 }
 
 void MainWindow::on_lineEdit_2_textChanged(const QString &arg1)
@@ -266,7 +269,7 @@ void MainWindow::on_pushButton_5_clicked()
 
         MimeText text;
             QString messagetext = "panne de type " ;
-            messagetext=messagetext+type_panne+" dans logement numero "+ref_log +" **description du panne: " +description;
+            messagetext=messagetext+type_panne+" dans logement numero "+ref_log +" **description: " +description;
             text.setText(messagetext);
             message.addPart(&text);
 
@@ -299,4 +302,10 @@ void MainWindow::on_pushButton_8_clicked()
       if (dialog->exec() != QDialog::Accepted)
         return;
 
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    QString link = "https://console.twilio.com/us1/develop/sms/try-it-out/send-an-sms?frameUrl=%2Fconsole%2Fsms%2Fget-setup%3F__override_layout__%3Dembed%26bifrost%3Dtrue%26x-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fsms%2Fgetting-started%2Fbuild%3F__override_layout__%3Dembed%26bifrost%3Dtrue%26x-target-region%3Dus1";
+    QDesktopServices::openUrl(QUrl(link));
 }
