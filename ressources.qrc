@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>images/LOGO RE.png</file>
+        <file>images/photo-1528460033278-a6ba57020470.jpg</file>
+        <file>images/pause.png</file>
+        <file>images/play-button.png</file>
+    </qresource>
+</RCC>
