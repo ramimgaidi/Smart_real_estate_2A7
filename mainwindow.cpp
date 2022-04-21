@@ -15,12 +15,22 @@
 #include <QPainter>
 #include "src/SmtpMime"
 #include <QDesktopServices>
-
+#include <QSystemTrayIcon>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+        switch(ret){
+        case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+            break;
+        case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+           break;
+        case(-1):qDebug() << "arduino is not available";
+        }
+         QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+         //le slot update_label suite à la reception du signal readyRead (reception des données).
     ui->lineEdit->setValidator( new QIntValidator(0, 99999999, this));
         ui->comboBox->addItem("");
          ui->comboBox_2->addItem("");
@@ -308,4 +318,27 @@ void MainWindow::on_pushButton_4_clicked()
 {
     QString link = "https://console.twilio.com/us1/develop/sms/try-it-out/send-an-sms?frameUrl=%2Fconsole%2Fsms%2Fget-setup%3F__override_layout__%3Dembed%26bifrost%3Dtrue%26x-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fsms%2Fgetting-started%2Fbuild%3F__override_layout__%3Dembed%26bifrost%3Dtrue%26x-target-region%3Dus1";
     QDesktopServices::openUrl(QUrl(link));
+}
+void MainWindow::update_label()
+{
+
+
+
+    data=A.read_from_arduino();
+    if(data=="1")
+    {
+
+       A.write_to_arduino("1"); //envoyer 1 à arduino
+        QMessageBox::information(this,"message RFID","acces autorisé");
+    }
+
+
+    else if (data=="0")
+    {
+
+       A.write_to_arduino("0"); //envoyer 1 à arduino
+        QMessageBox::information(this,"message RFID","acces non autorisé");
+
+    }
+
 }

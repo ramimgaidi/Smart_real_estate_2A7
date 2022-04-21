@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
+#include "arduino.h"
+#include "arduino.cpp"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -25,3 +27,4 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+

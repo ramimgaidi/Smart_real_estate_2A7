@@ -340,3 +340,18 @@ QPrinter printer(QPrinter::PrinterResolution);
 
     doc.print(&printer);
 }
+bool reclamation::recherche_ref(QString MATRICULE)
+{
+    QMessageBox msgBox;
+    QSqlQuery query;
+    query.prepare("Select * from employe where MATRICULE=:MATRICULE");
+    query.bindValue(":MATRICULE", MATRICULE);
+    if (query.exec() && query.next())
+    {
+            return true;
+    }
+    else
+    {
+        return false;
+    }
+}

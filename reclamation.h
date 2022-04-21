@@ -31,7 +31,7 @@ QSqlQueryModel *tri_ref_rec();
    QSqlQueryModel *tri_ref_log();
 
    QSqlQueryModel *rechercher(QString);
-
+bool recherche_ref(QString );
 private:
     int ref_rec,ref_log;
     QString type_panne,description;

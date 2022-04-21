@@ -7,6 +7,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QTextDocument>
+#include "arduino.h"
+#include <QSystemTrayIcon>
 namespace Ui {
 class MainWindow;
 }
@@ -43,10 +45,14 @@ private slots:
     void on_pushButton_8_clicked();
 
     void on_pushButton_4_clicked();
-
+void update_label();
 private:
+    arduino A;
+        QByteArray data;
     reclamation R;
    Ui::MainWindow *ui;
+   QSystemTrayIcon *MSystem;
 };
+
 
 #endif // MAINWINDOW_H
