@@ -18,8 +18,8 @@ QSerialPort *Arduino::getserial()
    return serial;
 }
 int Arduino::connect_arduino()
-{   // recherche du port sur lequel la carte arduino identifée par  arduino_uno_vendor_id
-    // est connectée
+{   // recherche du port
+    // connectée
     foreach (const QSerialPortInfo &serial_port_info, QSerialPortInfo::availablePorts()){
            if(serial_port_info.hasVendorIdentifier() && serial_port_info.hasProductIdentifier()){
                if(serial_port_info.vendorIdentifier() == arduino_uno_vendor_id && serial_port_info.productIdentifier()
@@ -64,19 +64,7 @@ QByteArray Arduino::read_from_arduino()
 
          return data;
     }
-    //zeineb
-    /*if(serial->isReadable()){
-        if(serial->waitForReadyRead(3000)){
-            //QThread::msleep(500);
-            data = serial->readAll();
-            while (serial->waitForReadyRead(10))
-               {
-                   data += serial->readAll();
 
-               }
-        }
-         return data;
-    }*/
  }
 
 
@@ -89,15 +77,7 @@ int Arduino::write_to_arduino( QByteArray d)
     }else{
         qDebug() << "Couldn't write to serial!";
     }
-    //zeineb
-    /*int b=0;
-    if(serial->isWritable()){
-        serial->waitForBytesWritten(1000);
-        b = serial->write(d);  // envoyer des donnés vers Arduino
-        serial->flush();
 
-    }
-    return b;*/
 
 
 }
