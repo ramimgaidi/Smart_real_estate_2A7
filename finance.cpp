@@ -164,3 +164,18 @@ int Finance::calcule_revenance(Finance F)
    msgbox.exec() ;
    return tot;
 }
+bool Finance::recherche_ref(QString MATRICULE)
+{
+    QMessageBox msgBox;
+    QSqlQuery query;
+    query.prepare("Select * from employe where MATRICULE=:MATRICULE");
+    query.bindValue(":MATRICULE", MATRICULE);
+    if (query.exec() && query.next())
+    {
+            return true;
+    }
+    else
+    {
+        return false;
+    }
+}

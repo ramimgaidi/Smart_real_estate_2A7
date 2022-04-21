@@ -62,3 +62,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Ressource.qrc
+
+DISTFILES += \
+    ../../Downloads/logo rew.png

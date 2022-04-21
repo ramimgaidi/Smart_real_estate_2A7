@@ -20,6 +20,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+       break;
+    case(-1):qDebug() << "arduino is not available";
+    }
+     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+     //le slot update_label suite à la reception du signal readyRead (reception des données).
     mMediaPlayer = new QMediaPlayer(this);
 
     connect(mMediaPlayer, &QMediaPlayer::positionChanged, [&](quint64 pos){
@@ -498,28 +508,43 @@ void MainWindow::update_label()
 {
     data=A.read_from_arduino();
     if(data=="1")
+    {
 
-        ui->label_132->setText("Correcte"); // si les données reçues de arduino via la liaison série sont égales à 1
+        ui->label_25->setText("Correcte"); // si les données reçues de arduino via la liaison série sont égales à 1
+        MSystem->showMessage(tr("notification"),tr("La caisse est ouverte"));
+    }
 
 
     else if (data=="0")
+    {
 
-        ui->label_132->setText("Incorrect");   // si les données reçues de arduino via la liaison série sont égales à 0
+        ui->label_25->setText("Incorrect");   // si les données reçues de arduino via la liaison série sont égales à 0
+        MSystem->showMessage(tr("notification"),tr("Veuillez réessayer"));
+
+    }
 
 }
 
 
-void MainWindow::on_pushButton_10_clicked()
+void MainWindow::on_pushButton_12_clicked()
 {
-    A.write_to_arduino("1"); //envoyer 1 à arduino
+   QString code = ui->lineEdit_4->text();
+   if (F.recherche_ref(code))
+   {
+       //ui->label_25->setText("correcte");
+       A.write_to_arduino("1"); //envoyer 1 à arduino
+       //MSystem->showMessage(tr("notification"),tr("La caisse est ouverte"));
+
+
+   }
+   else
+   {
+
+       //ui->label_25->setText("Incorrecte");
+       A.write_to_arduino("0"); //envoyer 0 à arduino
+       //MSystem->showMessage(tr("notification"),tr("Veuillez réessayer"));
+
+   }
+
 
 }
-
-
-void MainWindow::on_pushButton_11_clicked()
-{
-    A.write_to_arduino("0");  //envoyer 0 à arduino
-
-}
-
-

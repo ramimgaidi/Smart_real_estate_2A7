@@ -29,6 +29,8 @@ public:
     QSqlQueryModel *rechercher(QString);
     int calcule_revenance(Finance);
     QSqlQueryModel *tri_id_2_finance();
+    bool recherche_ref(QString);
+
 
 private:
     int id_finance,revenance;

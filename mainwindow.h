@@ -60,12 +60,10 @@ private slots:
     void on_radioButton_clicked();
 
     void on_radioButton_2_clicked();
+
     void update_label();
 
-    void on_pushButton_10_clicked();
-
-    void on_pushButton_11_clicked();
-
+    void on_pushButton_12_clicked();
 
 private:
     Finance F;
