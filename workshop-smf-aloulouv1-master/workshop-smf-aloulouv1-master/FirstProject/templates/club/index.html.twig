@@ -1,0 +1,27 @@
+
+    <h1>Club </h1>
+
+    <table >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for club in clubs %}
+            <tr>
+                <td>{{ club.ref }}</td>
+                <td>{{ club.createdAt|date('Y-m-d H:i:s')  }}</td>
+                <td>
+                    <a href="{{ path('detail', {'id': club.ref}) }}">detail club</a>
+                    <a href="{{ path('update', {'id': club.ref}) }}">update club</a>
+                </td>
+            </tr>
+       
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
